@@ -48,7 +48,6 @@ export default class Algorithm {
       else                pos = [ {x: -1, y: 0},  {x: 0, y: -1}, {x: 1, y: 0},  {x: 0, y: 1},
                                   {x: -1, y: -1}, {x: 1, y: -1}, {x: 1, y: -1}, {x: 1, y: 1}  ];
       
-      let i = 0;
       for (let new_pos of pos) {
         let eq1 = false, eq2 = false;
         let node_pos = {x: curr_node.pos.x + new_pos.x, y: curr_node.pos.y + new_pos.y};
@@ -89,7 +88,6 @@ export default class Algorithm {
               })
             }
         }
-        i++;
       } 
     }
     return;
