@@ -19,7 +19,6 @@ export default class Algorithm {
     let closed_list = [];
 
     open_list.push(root);
-    let count = 0;
     while (open_list.length > 0) {
       let curr_index = 0, index = 0;
       let curr_node = open_list[0];
@@ -77,11 +76,10 @@ export default class Algorithm {
           child.f = child.g + child.h;
 
           for (let open of open_list)
-            if (child.is_equal(open))
-              if (child.g >= open.g) {
-                eq2 = true;
-                break;
-              }   
+            if (child.is_equal(open) && child.g >= open.g) {
+              eq2 = true;
+              break;
+            }   
           
           if (!eq2)  {
             open_list.push(child);
