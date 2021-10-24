@@ -1,4 +1,4 @@
-# Path-Finder-Visualiztion-JS
+# Path-Finder-Visualization-JS
 Simple Path_Finder in JavaScript
 
 To execute, you need to create a local server.
