@@ -1,0 +1,18 @@
+@import url(menu.css);
+@import url(table.css);
+@import url(topbar.css);
+
+/* 
+  Hoja de estilos que introduce por defecto el color de fondo, 0 margen...
+  E importa todos los demás archivos CSS.
+  */
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  background-color: #23322a;
+  background-size: cover;
+}
