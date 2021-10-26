@@ -1,0 +1,63 @@
+/* En este fichero se establece como se debe ver el tablero de juego */
+
+.table-container {
+  overflow: hidden;
+  position: absolute;
+  background-color: rgb(199, 199, 199);
+  width: 45%;
+  height: 90%;
+  top: 7.5%;
+  left: 40%;
+  box-shadow: 0 0 5vh black;
+}
+
+.table {
+  position: absolute;
+  background-color: white;
+  width: 100%;
+  height: 100%;
+  display: table;
+  cursor: pointer;
+  box-shadow: 0 0 1vh black;
+}
+
+.row {
+  display: table-row;
+  margin: 0;
+  width: 0%;
+  height: 0%;
+}
+
+.table .col {
+  width: 0%;
+  height: 0%;
+  display: table-cell;
+  margin: 0;
+  padding: 0;
+}
+
+.car, .final {
+  background-repeat: no-repeat;
+}
+
+.fullscreen {
+  cursor: pointer;
+  width: 5%;
+  height: 5%;
+  position: absolute;
+  right: 0%;
+  background-color: rgba(202, 202, 202, .5);
+  border: 2px solid black;
+}
+
+.fullscreen:hover {
+  background-color: rgb(202, 202, 202);
+}
+
+.error {
+  position: absolute;
+  font-size: 2vw;
+  background-color: red;
+  border: 3px solid black;
+  display: none;
+}
