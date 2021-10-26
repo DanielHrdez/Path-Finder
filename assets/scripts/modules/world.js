@@ -11,19 +11,19 @@ export default class World {
     this.size = this.row * this.col;
     this.map = Array(this.row);
     let i = 0;
-    var html = '';
+    var html = [];
     while (i < this.row) {
       this.map[i] = new Array(this.col).fill(0);
-      html += "<div class='row row" + i + "' style='border: 1px solid grey'>";
+      html.push("<div class='row row" + i + "' style='border: 1vw solid grey'>");
       let j = 0;
       while (j < this.col) {
-        html += "<div class='col col" + j + "' style='border: 1px solid grey'></div>";
+        html.push("<div class='col col" + j + "' style='border: 1vw solid grey'></div>");
         ++j;
       }
-      html += "</div>";
+      html.push("</div>");
       ++i;
     }
-    $('.table').append(html);
+    document.getElementsByClassName("table")[0].innerHTML = html.join("");
   }
 
   // Método para crear Objetos de forma aleatoria
