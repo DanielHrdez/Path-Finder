@@ -77,7 +77,6 @@ $('.table-container').on("wheel", (e) => {
     var diffY = e.pageY - parseInt(table_cont.css("top")) - parseInt(table_cont.css("height")) / 2;
     diffX = -diffX / 10 * (size - 100) * 1.1 / 10;
     diffY = -diffY / 10 * (size - 100) * 1.1 / 10;
-    console.log(diffX)
     if(e.originalEvent.deltaY < 0) {
       size += 10;
       table.css({

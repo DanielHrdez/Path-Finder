@@ -14,9 +14,6 @@
   <!-- Import del archivo CSS que contiene el cómo se debe ver la interfaz -->
   <link rel="stylesheet" href="assets/css/master.css">
 
-  <!-- Import del archivo JS que contiene el cómo debe actuar la interfaz -->
-  <script type="module" src="assets/scripts/script.js"></script>
-
   <!-- Título e Icono -->
   <title>Path-Finder Visualization</title>
   <link rel="icon" href="assets/img/car_blue.svg">
@@ -72,10 +69,14 @@
 
   <!-- Tablero donde se va a realizar toda la simulación -->
   <div class="table-container" oncontextmenu="return false">
+    <input type="checkbox" id="border"/>
     <div class="table"></div>
     <img class="fullscreen" src="assets/img/fullscreen.svg"/>
     <p class="error">NO SOLUTION</p>
   </div>
+  
+  <!-- Import del archivo JS que contiene el cómo debe actuar la interfaz -->
+  <script async type="module" src="assets/scripts/script.js"></script>
 </body>
 
 </html>
