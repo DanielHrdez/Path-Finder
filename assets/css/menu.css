@@ -6,7 +6,7 @@
   box-shadow: 0 0 2vh black;
   padding: 8vh 2% 4vh;
   grid-template-columns: 50% 50%;
-  grid-template-rows: repeat(6, 4vh 8vh) 16vh;
+  grid-template-rows: repeat(6, 4vh 8vh) 4vh 12vh;
   font-size: 2vw;
   align-items: center;
 }
@@ -95,13 +95,23 @@
   gap: 5%;
 }
 
-.Manhattan, .Euclidean, .Chebyshev { 
+.Manhattan,
+.Euclidean,
+.Chebyshev {
   width: auto;
   cursor: pointer;
 }
 
-#simular {
+.childs {
   grid-row: 13;
+  grid-column: 1 / 3;
+  width: 50%;
+  justify-self: center;
+  cursor: pointer;
+}
+
+#simular {
+  grid-row: 14;
   grid-column: 1 / 3;
   width: 50%;
   justify-self: center;
@@ -118,13 +128,14 @@ input {
   height: 3vh;
   border-radius: 5vh;
   border-width: 0;
-  box-shadow: 0 0 .3vh black;
+  box-shadow: 0 0 0.3vh black;
   text-align: center;
   font-size: 1vw;
   font-weight: 550;
-  transition: transform .5s;
+  transition: transform 0.5s;
 }
 
-input:hover{
+input:hover {
   transform: scale(105%);
 }
+

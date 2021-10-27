@@ -1,6 +1,6 @@
 /* En este fichero se establece como se debe ver el tablero de juego */
 
-.table-container {
+#table-container {
   overflow: hidden;
   position: absolute;
   background-color: rgb(199, 199, 199);
@@ -11,7 +11,7 @@
   box-shadow: 0 0 5vh black;
 }
 
-.table {
+#table {
   position: absolute;
   background-color: white;
   width: 100%;
@@ -28,7 +28,7 @@
   height: 0%;
 }
 
-.table .col {
+#table .col {
   width: 0%;
   height: 0%;
   display: table-cell;
@@ -36,7 +36,8 @@
   padding: 0;
 }
 
-.car, .final {
+.car,
+.final {
   background-repeat: no-repeat;
 }
 
@@ -46,7 +47,7 @@
   height: 5%;
   position: absolute;
   right: 0%;
-  background-color: rgba(202, 202, 202, .5);
+  background-color: rgba(202, 202, 202, 0.5);
   border: 2px solid black;
 }
 
@@ -54,7 +55,7 @@
   background-color: rgb(202, 202, 202);
 }
 
-.error {
+#error {
   position: absolute;
   font-size: 2vw;
   background-color: red;

@@ -5,16 +5,17 @@ export default class Vehicle {
   constructor(x = 0, y = 0, world) {
     this.set(x, y, world);
   }
-  
+
   set(x = 0, y = 0, world) {
     if (world.map[y][x] == 0) {
       this.x = x;
       this.y = y;
 
-      let div = $('.row' + this.y + ' > .col' + this.x);
-      div.addClass('car');
+      let div = $(".row" + this.y + " > .col" + this.x);
+      div.addClass("car");
       div.css({
-        background: "url('./assets/img/car.svg') no-repeat center center #528BEB"
+        background:
+          "url('./assets/img/car.svg') no-repeat center center #528BEB",
       });
     }
   }
@@ -26,29 +27,30 @@ export default class Vehicle {
       this.x_final = x;
       this.y_final = y;
 
-      let div = $('.row' + this.y_final + ' > .col' + this.x_final);
-      div.addClass('final');
+      let div = $(".row" + this.y_final + " > .col" + this.x_final);
+      div.addClass("final");
       div.css({
-        background: "url('./assets/img/final.svg') no-repeat center center #ff0000"
+        background:
+          "url('./assets/img/final.svg') no-repeat center center #ff0000",
       });
     }
   }
 
   // Remueve la visualización del vehiculo
   clear() {
-    let div = $('.row' + this.y + ' > .col' + this.x)
-    div.removeClass('car');
+    let div = $(".row" + this.y + " > .col" + this.x);
+    div.removeClass("car");
     div.css({
-      background: "white"
-    })
+      background: "white",
+    });
   }
 
   // Remueve la visualización del final del vehiculo
   clearfinal() {
-    let div = $('.row' + this.y_final + ' > .col' + this.x_final)
-    div.removeClass('final');
+    let div = $(".row" + this.y_final + " > .col" + this.x_final);
+    div.removeClass("final");
     div.css({
-      background: "white"
-    })
+      background: "white",
+    });
   }
 }

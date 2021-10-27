@@ -1,4 +1,4 @@
-import Node from './node.js';
+import Node from "./node.js";
 
 export default class Algorithm {
   constructor(world, vehicle) {
@@ -6,22 +6,23 @@ export default class Algorithm {
     this.vehicle = vehicle;
   }
 
-  A_star(type_dir = 4, type_alg = 0) {
+  A_star(type_dir = 4, type_alg = 0, see_childs = false) {
     let x = this.vehicle.x;
     let y = this.vehicle.y;
     let fin_x = this.vehicle.x_final;
     let fin_y = this.vehicle.y_final;
 
-    var root = new Node(null, {x, y});
-    var end = new Node(null, {x: fin_x, y: fin_y});
+    var root = new Node(null, { x, y });
+    var end = new Node(null, { x: fin_x, y: fin_y });
 
     let open_list = [];
     let closed_list = [];
 
     open_list.push(root);
     while (open_list.length > 0) {
-      let curr_index = 0, index = 0;
-      let curr_node = open_list[0];
+      let curr_index = 0,
+        index = 0,
+        curr_node = open_list[0];
       for (let item of open_list) {
         if (item.f < curr_node.f) {
           curr_node = item;
@@ -43,21 +44,46 @@ export default class Algorithm {
         return path.reverse();
       }
 
-      let children = [],  pos = [];
-      if (type_dir == 4)  pos = [ {x: -1, y: 0},  {x: 0, y: -1}, {x: 1, y: 0},  {x: 0, y: 1}  ];
-      else                pos = [ {x: -1, y: 0},  {x: 0, y: -1}, {x: 1, y: 0},  {x: 0, y: 1},
-                                  {x: -1, y: -1}, {x: 1, y: -1}, {x: 1, y: -1}, {x: 1, y: 1}  ];
-      
+      let children = [],
+        pos = [];
+      if (type_dir == 4)
+        pos = [
+          { x: -1, y: 0 },
+          { x: 0, y: -1 },
+          { x: 1, y: 0 },
+          { x: 0, y: 1 },
+        ];
+      else
+        pos = [
+          { x: -1, y: 0 },
+          { x: 0, y: -1 },
+          { x: 1, y: 0 },
+          { x: 0, y: 1 },
+          { x: -1, y: -1 },
+          { x: 1, y: -1 },
+          { x: 1, y: -1 },
+          { x: 1, y: 1 },
+        ];
+
       let i = 0;
       for (let new_pos of pos) {
-        let eq1 = false, eq2 = false;
-        let node_pos = {x: curr_node.pos.x + new_pos.x, y: curr_node.pos.y + new_pos.y};
-        
-        if (node_pos.x > this.world.col - 1 || node_pos.x < 0 ||
-            node_pos.y > this.world.row - 1 || node_pos.y < 0 ) continue;
-        
+        let eq1 = false,
+          eq2 = false;
+        let node_pos = {
+          x: curr_node.pos.x + new_pos.x,
+          y: curr_node.pos.y + new_pos.y,
+        };
+
+        if (
+          node_pos.x > this.world.col - 1 ||
+          node_pos.x < 0 ||
+          node_pos.y > this.world.row - 1 ||
+          node_pos.y < 0
+        )
+          continue;
+
         if (this.world.map[node_pos.y][node_pos.x] != 0) continue;
-        
+
         let new_node = new Node(curr_node, node_pos);
         children.push(new_node);
         let child = children[i];
@@ -68,9 +94,9 @@ export default class Algorithm {
             break;
           }
 
-        if (!eq1)  {        
+        if (!eq1) {
           child.g = curr_node.g + 1;
-          if      (type_alg == 0) child.h = this.Manhattan(child, end);
+          if (type_alg == 0) child.h = this.Manhattan(child, end);
           else if (type_alg == 1) child.h = this.Euclidean(child, end);
           else if (type_alg == 2) child.h = this.Chebyshev(child, end);
           child.f = child.g + child.h;
@@ -79,31 +105,41 @@ export default class Algorithm {
             if (child.is_equal(open) && child.g >= open.g) {
               eq2 = true;
               break;
-            }   
-          
-          if (!eq2)  {
-            open_list.push(child);
-
-            $('.row' + child.pos.y + '> .col' + child.pos.x).css({
-                background: "rgb(200, 200, 200)"
-              })
             }
+
+          if (!eq2) {
+            open_list.push(child);
+            if (see_childs) {
+              setTimeout(() => {
+                $(".row" + child.pos.y + "> .col" + child.pos.x).css({
+                  "background-color": "rgb(200, 200, 200)",
+                });
+              }, 4);
+            }
+          }
         }
         i++;
-      } 
+      }
     }
     return;
   }
 
   Manhattan(child, end) {
-    return Math.abs(child.pos.x - end.pos.x) + Math.abs(child.pos.y - end.pos.y);
+    return (
+      Math.abs(child.pos.x - end.pos.x) + Math.abs(child.pos.y - end.pos.y)
+    );
   }
 
   Euclidean(child, end) {
-    return Math.sqrt((child.pos.x - end.pos.x) ** 2 + (child.pos.y - end.pos.y) ** 2);
+    return Math.sqrt(
+      (child.pos.x - end.pos.x) ** 2 + (child.pos.y - end.pos.y) ** 2
+    );
   }
 
   Chebyshev(child, end) {
-    return Math.max(Math.abs(child.pos.x - end.pos.x), Math.abs(child.pos.y - end.pos.y));
+    return Math.max(
+      Math.abs(child.pos.x - end.pos.x),
+      Math.abs(child.pos.y - end.pos.y)
+    );
   }
 }
