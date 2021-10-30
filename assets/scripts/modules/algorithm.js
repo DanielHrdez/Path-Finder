@@ -6,7 +6,7 @@ export default class Algorithm {
     this.vehicle = vehicle;
   }
 
-  A_star(type_dir = 4, type_alg = 0, see_childs = false) {
+  A_star(type_dir = 4, type_alg = 0, see_childs = false, see_animation = false) {
     let x = this.vehicle.x;
     let y = this.vehicle.y;
     let fin_x = this.vehicle.x_final;
@@ -24,7 +24,7 @@ export default class Algorithm {
         index = 0,
         curr_node = open_list[0];
       for (let item of open_list) {
-        if (item.f < curr_node.f) {
+        if (item.f <= curr_node.f) {
           curr_node = item;
           curr_index = index;
         }
@@ -41,11 +41,10 @@ export default class Algorithm {
           path.push(current.pos);
           current = current.parent;
         }
-        return path.reverse();
+        return [path.reverse(), closed_list.length];
       }
 
-      let children = [],
-        pos = [];
+      let pos = [];
       if (type_dir == 4)
         pos = [
           { x: -1, y: 0 },
@@ -65,7 +64,6 @@ export default class Algorithm {
           { x: 1, y: 1 },
         ];
 
-      let i = 0;
       for (let new_pos of pos) {
         let eq1 = false,
           eq2 = false;
@@ -84,9 +82,7 @@ export default class Algorithm {
 
         if (this.world.map[node_pos.y][node_pos.x] != 0) continue;
 
-        let new_node = new Node(curr_node, node_pos);
-        children.push(new_node);
-        let child = children[i];
+        let child = new Node(curr_node, node_pos);
 
         for (let closed of closed_list)
           if (child.is_equal(closed)) {
@@ -110,15 +106,20 @@ export default class Algorithm {
           if (!eq2) {
             open_list.push(child);
             if (see_childs) {
-              setTimeout(() => {
+              if (see_animation) {
+                setTimeout(() => {
+                  $(".row" + child.pos.y + "> .col" + child.pos.x).css({
+                    "background-color": "rgb(200, 200, 200)",
+                  });
+                }, 4);
+              } else {
                 $(".row" + child.pos.y + "> .col" + child.pos.x).css({
                   "background-color": "rgb(200, 200, 200)",
                 });
-              }, 4);
+              }
             }
           }
         }
-        i++;
       }
     }
     return;

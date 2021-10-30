@@ -104,10 +104,15 @@
 
 .childs {
   grid-row: 13;
-  grid-column: 1 / 3;
-  width: 50%;
-  justify-self: center;
-  cursor: pointer;
+  grid-column: 1 / 2;
+  width: 90%;
+}
+
+.animation {
+  grid-row: 13;
+  grid-column: 2 / 3;
+  width: 90%;
+  justify-self: end;
 }
 
 #simular {

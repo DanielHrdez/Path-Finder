@@ -155,7 +155,8 @@ $(".fullscreen").on("click", () => {
 
 let type_dir = 4,
   type_alg = 0,
-  see_childs = false;
+  see_childs = false,
+  see_animation = false;
 
 $(
   setInterval(() => {
@@ -183,6 +184,8 @@ $(
     else $("#grid").css({ color: "blue" });
     if (see_childs) $(".childs").css({ color: "blue" });
     else $(".childs").css({ color: "black" });
+    if (see_animation) $(".animation").css({ color: "blue" });
+    else $(".animation").css({ color: "black" });
   })
 );
 
@@ -210,53 +213,83 @@ $(".childs").on("click", () => {
   see_childs = !see_childs;
 });
 
+$(".animation").on("click", () => {
+  see_animation = !see_animation;
+});
+
 let interval,
-  simulate_first_time = true;
+  simulate_first_time = true,
+  time = 0,
+  path = [],
+  nodos = 0;
+
+document.body.onkeyup = function(e) {
+  if(e.keyCode == 32) {
+    // let prev_time = 0,
+    //   n = 1;
+    // for (let i = 0; i < n; i++) {
+      document.getElementById("simular").click();
+    //   prev_time = prev_time + time;
+    // }
+    // console.log(`Nodos: \n\t${nodos - 1}`, `\n\nLongitud camino mínimo: \n\t${path.length - 1}`, `\n\nTiempo medio en ${n} iteraciones es: \n\t${prev_time / n / 1000} seg`)
+  }
+}
+
 document.getElementById("simular").addEventListener("click", () => {
-  console.time("Algoritmo");
   if (!simulate_first_time) {
     clearInterval(interval);
     $(".col")
-      .filter(function (index) {
-        return (
-          this.style.backgroundColor == "rgb(42, 219, 142)" ||
-          this.style.backgroundColor == "rgb(200, 200, 200)"
+    .filter(function () {
+      return (
+        this.style.backgroundColor == "rgb(42, 219, 142)" ||
+        this.style.backgroundColor == "rgb(200, 200, 200)"
         );
       })
       .css({
         "background-color": "white",
       });
-  } else {
-    $(".col")
-      .filter(function (index) {
+    } else {
+      $(".col")
+      .filter(function () {
         return this.style.backgroundColor == "#528BEB";
       })
       .css({
         "background-color": "white",
       });
-  }
-
-  let alg = new Algorithm(world, vehicle),
-    path = alg.A_star(type_dir, type_alg, see_childs);
-
-  if (path == undefined) {
+    }
+    
+  let alg = new Algorithm(world, vehicle);
+  var start = window.performance.now();
+  let a_star = alg.A_star(type_dir, type_alg, see_childs, see_animation);
+  if (a_star == undefined) {
     document.getElementById("error").style.display = "inline";
   } else {
     document.getElementById("error").style.display = "none";
+    var end = window.performance.now();
+    time = end - start;
+    path = a_star[0];
+    nodos = a_star[1];
+
     path.shift();
     path.pop();
 
-    let count = 0;
-    interval = setInterval(() => {
-      if (count >= path.length) clearInterval(interval);
-      else {
-        $(".row" + path[count].y + "> .col" + path[count].x).css({
+    if (see_animation) {
+      let count = 0;
+      interval = setInterval(() => {
+        if (count >= path.length) clearInterval(interval);
+        else {
+          $(".row" + path[count].y + "> .col" + path[count].x).css({
+            "background-color": "#2adb8e",
+          });
+          count++;
+        }
+      }, 4);
+    } else {
+      for (let i = 0; i < path.length; i++)
+        $(".row" + path[i].y + "> .col" + path[i].x).css({
           "background-color": "#2adb8e",
         });
-        count++;
-      }
-    }, 4);
+    }
   }
-  console.timeEnd("Algoritmo");
   simulate_first_time = false;
 });
