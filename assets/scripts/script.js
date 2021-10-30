@@ -237,26 +237,14 @@ document.body.onkeyup = function(e) {
 
 document.getElementById("simular").addEventListener("click", () => {
   if (!simulate_first_time) {
-    clearInterval(interval);
-    $(".col")
-    .filter(function () {
-      return (
-        this.style.backgroundColor == "rgb(42, 219, 142)" ||
-        this.style.backgroundColor == "rgb(200, 200, 200)"
-        );
-      })
-      .css({
-        "background-color": "white",
-      });
-    } else {
-      $(".col")
-      .filter(function () {
-        return this.style.backgroundColor == "#528BEB";
-      })
-      .css({
-        "background-color": "white",
-      });
-    }
+    document.querySelectorAll('.col').forEach((current) => {
+      if (
+        current.style.backgroundColor == "rgb(42, 219, 142)" ||
+        current.style.backgroundColor == "rgb(200, 200, 200)"
+      )
+        current.style.backgroundColor = "white";
+    })
+  }
     
   let alg = new Algorithm(world, vehicle);
   var start = window.performance.now();
