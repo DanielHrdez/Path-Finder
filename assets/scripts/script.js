@@ -233,13 +233,12 @@ document.body.onkeyup = function(e) {
       document.getElementById("simular").click();
       prev_time = prev_time + time;
     }
-    console.log(`Nodos: \n\t${nodos.length - 1}`, `\n\nLongitud camino mínimo: \n\t${path.length - 1}`, `\n\nTiempo medio en ${n} iteraciones es: \n\t${prev_time / n / 1000} seg`)
+    // console.log(`Nodos: \n\t${nodos.length - 1}`, `\n\nLongitud camino mínimo: \n\t${path.length - 1}`, `\n\nTiempo medio en ${n} iteraciones es: \n\t${prev_time / n / 1000} seg`)
   }
 }
 
 document.getElementById("simular").addEventListener("click", () => {
   if (!simulate_first_time) {
-    console.log(nodos)
     if (prev_see_child) var prev_way = nodos.concat(path)
     else var prev_way = path;
     for (let node of prev_way) {
