@@ -218,7 +218,6 @@ $(".animation").on("click", () => {
 });
 
 let interval,
-  interval2,
   simulate_first_time = true,
   time = 0,
   path = [],
@@ -233,7 +232,7 @@ document.body.onkeyup = function(e) {
       document.getElementById("simular").click();
       prev_time = prev_time + time;
     }
-    // console.log(`Nodos: \n\t${nodos.length - 1}`, `\n\nLongitud camino mínimo: \n\t${path.length - 1}`, `\n\nTiempo medio en ${n} iteraciones es: \n\t${prev_time / n / 1000} seg`)
+    console.log(`Nodos: \n\t${nodos.length - 1}`, `\n\nLongitud camino mínimo: \n\t${path.length - 1}`, `\n\nTiempo medio en ${n} iteraciones es: \n\t${prev_time / n / 1000} seg`)
   }
 }
 
@@ -274,16 +273,12 @@ document.getElementById("simular").addEventListener("click", () => {
 
     if (see_childs) {
       if (see_animation) {
-        let count2 = 0;
-        interval2 = setInterval(() => {
-          if (count2 >= nodos.length) clearInterval(interval2);
-          else {
-            $(".row" + nodos[count2].pos.y + "> .col" + nodos[count2].pos.x).css({
-              "background-color": "rgb(200, 200, 200)",
-            });
-            count2++;
-          }
-        }, 4);
+        for (let i = 0; i < nodos.length; i++)
+          setTimeout(() => {
+              $(".row" + nodos[i].pos.y + "> .col" + nodos[i].pos.x).css({
+                "background-color": "rgb(200, 200, 200)",
+              });
+          }, 4);
       } else {
         for (let i = 0; i < nodos.length; i++) 
           $(".row" + nodos[i].pos.y + "> .col" + nodos[i].pos.x).css({
