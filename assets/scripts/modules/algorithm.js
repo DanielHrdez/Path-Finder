@@ -6,7 +6,7 @@ export default class Algorithm {
     this.vehicle = vehicle;
   }
 
-  A_star(type_dir = 4, type_alg = 0, see_childs = false, see_animation = false) {
+  A_star(type_dir = 4, type_alg = 0) {
     let x = this.vehicle.x;
     let y = this.vehicle.y;
     let fin_x = this.vehicle.x_final;
@@ -41,7 +41,7 @@ export default class Algorithm {
           path.push(current.pos);
           current = current.parent;
         }
-        return [path.reverse(), closed_list.length];
+        return [path.reverse(), closed_list];
       }
 
       let pos = [];
@@ -105,19 +105,6 @@ export default class Algorithm {
 
           if (!eq2) {
             open_list.push(child);
-            if (see_childs) {
-              if (see_animation) {
-                setTimeout(() => {
-                  $(".row" + child.pos.y + "> .col" + child.pos.x).css({
-                    "background-color": "rgb(200, 200, 200)",
-                  });
-                }, 4);
-              } else {
-                $(".row" + child.pos.y + "> .col" + child.pos.x).css({
-                  "background-color": "rgb(200, 200, 200)",
-                });
-              }
-            }
           }
         }
       }

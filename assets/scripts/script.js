@@ -218,37 +218,49 @@ $(".animation").on("click", () => {
 });
 
 let interval,
+  interval2,
   simulate_first_time = true,
   time = 0,
   path = [],
-  nodos = 0;
+  nodos = [],
+  prev_see_child = see_childs;
 
 document.body.onkeyup = function(e) {
   if(e.keyCode == 32) {
-    // let prev_time = 0,
-    //   n = 1;
-    // for (let i = 0; i < n; i++) {
+    let prev_time = 0,
+      n = 1;
+    for (let i = 0; i < n; i++) {
       document.getElementById("simular").click();
-    //   prev_time = prev_time + time;
-    // }
-    // console.log(`Nodos: \n\t${nodos - 1}`, `\n\nLongitud camino mínimo: \n\t${path.length - 1}`, `\n\nTiempo medio en ${n} iteraciones es: \n\t${prev_time / n / 1000} seg`)
+      prev_time = prev_time + time;
+    }
+    console.log(`Nodos: \n\t${nodos.length - 1}`, `\n\nLongitud camino mínimo: \n\t${path.length - 1}`, `\n\nTiempo medio en ${n} iteraciones es: \n\t${prev_time / n / 1000} seg`)
   }
 }
 
 document.getElementById("simular").addEventListener("click", () => {
   if (!simulate_first_time) {
-    document.querySelectorAll('.col').forEach((current) => {
-      if (
-        current.style.backgroundColor == "rgb(42, 219, 142)" ||
-        current.style.backgroundColor == "rgb(200, 200, 200)"
-      )
-        current.style.backgroundColor = "white";
-    })
+    console.log(nodos)
+    if (prev_see_child) var prev_way = nodos.concat(path)
+    else var prev_way = path;
+    for (let node of prev_way) {
+      if (node.pos != undefined) {
+        if (world.map[node.pos.y][node.pos.x] == 0)
+          $('.row' + node.pos.y + "> .col" + node.pos.x).css({
+            "background-color": "white",
+          });
+      } else {
+        if (world.map[node.y][node.x] == 0)
+          $('.row' + node.y + "> .col" + node.x).css({
+            "background-color": "white",
+          });
+      }
+    }
   }
+  prev_see_child = see_childs;
     
   let alg = new Algorithm(world, vehicle);
   var start = window.performance.now();
-  let a_star = alg.A_star(type_dir, type_alg, see_childs, see_animation);
+  let a_star = alg.A_star(type_dir, type_alg);
   if (a_star == undefined) {
     document.getElementById("error").style.display = "inline";
   } else {
@@ -260,6 +272,26 @@ document.getElementById("simular").addEventListener("click", () => {
 
     path.shift();
     path.pop();
+
+    if (see_childs) {
+      if (see_animation) {
+        let count2 = 0;
+        interval2 = setInterval(() => {
+          if (count2 >= nodos.length) clearInterval(interval2);
+          else {
+            $(".row" + nodos[count2].pos.y + "> .col" + nodos[count2].pos.x).css({
+              "background-color": "rgb(200, 200, 200)",
+            });
+            count2++;
+          }
+        }, 4);
+      } else {
+        for (let i = 0; i < nodos.length; i++) 
+          $(".row" + nodos[i].pos.y + "> .col" + nodos[i].pos.x).css({
+            "background-color": "rgb(200, 200, 200)",
+          });
+      }
+    }
 
     if (see_animation) {
       let count = 0;
