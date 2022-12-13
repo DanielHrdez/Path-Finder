@@ -1,4 +1,4 @@
-# PATH FINDER in C++ and JS (console and web)
+# PATH FINDER in C++ and JS (cli and web)
 Integrantes:
 * Joseph Gabino Rodríguez
 * Juan García Santos
