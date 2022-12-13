@@ -1,7 +1,5 @@
-# PATH FINDER in C++ and JS (cli and web)
-Integrantes:
-* Joseph Gabino Rodríguez
-* Juan García Santos
-* Daniel Hernández de León
+# Path-Finder-Visualization-JS
+Simple Path Finder in JavaScript
 
-Las instrucciones de uso están en sus respectivas carpetas
+To execute, you need to create a local server.
+For example with Node.js or with an VSCode Extension called 'Live Server' and Open Server of index.html
